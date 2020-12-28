@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <thread>
 
 using namespace std;
 
@@ -11,11 +12,10 @@ struct Coord
 	int y;
 };
 
-
-int main()
+double MMT(int M, int D)
 {
-	const int M = 1000, D = 10;
-	Coord pairs[M];
+	
+	Coord *pairs = new Coord[M];
 	int N = 0;
 
 	for (size_t i = 0; i < M; i++)
@@ -24,7 +24,6 @@ int main()
 		pairs[i].y = rand() % D;
 		//cout << pairs[i].x << "," << pairs[i].y <<"   ";
 	}
-	cout << endl;
 
 	for (size_t i = 0; i < M; i++)
 	{
@@ -35,7 +34,21 @@ int main()
 	}
 
 	cout << (4.0 * N) / M << endl;
+	return (4.0 * N) / M;
+
+}
+
+
+int main()
+{
 	
+	std::thread tA(MMT, 100,10);
+	std::thread tB(MMT, 1000,1000);
+	std::thread tC(MMT, 10000, 1000);
+
+	tA.join();
+	tB.join();
+	tC.join();
 
 
 }
